@@ -1,0 +1,50 @@
+<Gallery
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation ../../schemas/gallery.xsd"
+    xmlns:controlskit="clr-namespace:OpenSilver.ControlsKit;assembly=OpenSilver.ControlsKit.Controls"
+    xmlns:controlskitcontrols="clr-namespace:OpenSilver.ControlsKit.Controls;assembly=OpenSilver.ControlsKit.Controls">
+
+  <Section Name="ControlsKit" Label="ControlsKit" Icon="controlskit">
+
+    <Group Name="Panels" Label="Panels" Appearance="Details">
+      <Item Name="StaggeredPanel" Label="Staggered Panel (Masonry)" Icon="staggeredpanel" Keywords="masonry,pinterest,columns,tiles"
+            Description="Lays items out in columns of equal width, placing each item in the shortest column (masonry layout)."
+            DefaultWidth="240" DefaultHeight="200">
+        <controlskit:StaggeredPanel DesiredColumnWidth="70" ColumnSpacing="8" RowSpacing="8" Background="#FFF3F4F6">
+          <Border Width="70" Height="60" Background="#EF5350" CornerRadius="8" />
+          <Border Width="70" Height="100" Background="#34D399" CornerRadius="8" />
+          <Border Width="70" Height="80" Background="#6366F1" CornerRadius="8" />
+          <Border Width="70" Height="50" Background="#FBBF24" CornerRadius="8" />
+          <Border Width="70" Height="70" Background="#2DD4BF" CornerRadius="8" />
+        </controlskit:StaggeredPanel>
+      </Item>
+      <Item Name="AdaptiveColumnsPanel" Label="Adaptive Columns Panel" Icon="adaptivecolumnspanel" Keywords="responsive,columns,mobile"
+            Description="Places items side by side in equal columns, and switches to a vertical stack on mobile (or, more precisely, when the panel is at most 'NoColumnsBelowWidth' wide)."
+            DefaultWidth="300" DefaultHeight="120">
+        <controlskit:AdaptiveColumnsPanel NoColumnsBelowWidth="200" Background="#FFF3F4F6">
+          <Border Height="50" Margin="4" Background="#6366F1" CornerRadius="8" />
+          <Border Height="50" Margin="4" Background="#34D399" CornerRadius="8" />
+          <Border Height="50" Margin="4" Background="#EF5350" CornerRadius="8" />
+        </controlskit:AdaptiveColumnsPanel>
+      </Item>
+      <Item Name="FlexPanel" Label="Flex Panel" Icon="flexpanel" Keywords="flexbox,flex,stack,justify,align"
+          Description="Arranges items in a row or column with CSS flexbox-like justification, alignment, spacing and grow factors."
+          DefaultWidth="240" DefaultHeight="120">
+          <controlskit:FlexPanel Orientation="Horizontal" JustifyContent="SpaceBetween" AlignItems="Center" Background="#FFF3F4F6">
+              <Border Width="48" Height="48" Background="#EF5350" CornerRadius="8" />
+              <Border Width="48" Height="64" Background="#34D399" CornerRadius="8" />
+              <Border Width="48" Height="32" Background="#6366F1" CornerRadius="8" />
+          </controlskit:FlexPanel>
+      </Item>
+    </Group>
+
+    <Group Name="Controls" Label="Controls" Appearance="Details">
+      <Item Name="ExtendedButton" Label="Extended Button" Icon="extendedbutton" Keywords="button,icon,shadow,rounded"
+            Description="A button with an optional icon, rounded corners, shadow and hover/pressed colors."
+            DefaultWidth="120" DefaultHeight="32">
+          <controlskitcontrols:ExtendedButton ButtonText="Download" IconGeometry="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" FontSize="14" CornerRadius="5" Background="#FF1157FA" HoverBackground="#FF0D45C8" Foreground="White" IconBrush="White" BorderBrush="Transparent" />
+      </Item>
+    </Group>
+  </Section>
+</Gallery>

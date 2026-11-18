@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Schema of add-on designer definitions (designer.xml): contextual bar elements, panels and property hints.
+    <Designer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation https://xaml.io/addons/designer.xsd">
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           elementFormDefault="qualified">
+
+  <xs:attributeGroup name="Common">
+    <xs:attribute name="Label" type="xs:string"/>
+    <xs:attribute name="ToolTip" type="xs:string"/>
+    <xs:attribute name="Description" type="xs:string">
+      <xs:annotation><xs:documentation>Help text: below the title of a panel or section, below the label of a setting.</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Target" type="xs:string">
+      <xs:annotation><xs:documentation>The element edited, from the selected element: steps separated by '/'. Name = property element, Name(prefix:Type) = property element holding that object, prefix:Type = child element, * = every content child, . alone = the selected element itself. Missing elements are created.</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="When" type="xs:string">
+      <xs:annotation><xs:documentation>Shows the element only when all conditions (separated by ';') hold: Property=A|B, Property!=A|B, has:path, !has:path, is:prefix:Type, !is:prefix:Type (the element is of that type or a derived one).</xs:documentation></xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+
+  <xs:simpleType name="AppearanceType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Auto"/>
+      <xs:enumeration value="Tiles"/>
+      <xs:enumeration value="Pills"/>
+      <xs:enumeration value="List"/>
+      <xs:enumeration value="Swatches"/>
+      <xs:enumeration value="Positions"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="SetPropertyType">
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Property" type="xs:string" use="required"/>
+    <xs:attribute name="Value" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="SampleDataType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Property" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="ToggleType">
+    <xs:annotation><xs:documentation>A switch. With a Property, it sets the property; without, it adds its XAML content and removes it.</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Property" type="xs:string"/>
+    <xs:attribute name="Value" type="xs:string">
+      <xs:annotation><xs:documentation>The "on" value; True by default.</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="OffValue" type="xs:string">
+      <xs:annotation><xs:documentation>The "off" value; the opposite boolean by default, otherwise the property is removed.</xs:documentation></xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="OptionType">
+    <xs:attribute name="Value" type="xs:string">
+      <xs:annotation><xs:documentation>Missing: the option removes the property, such as "Automatic" or "Same as chart" (it then needs a Label).</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Label" type="xs:string"/>
+    <xs:attribute name="Icon" type="xs:string">
+      <xs:annotation><xs:documentation>Name of an icon of icons.xml: in a panel, options with icons show as tiles.</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Description" type="xs:string"/>
+    <xs:attribute name="Colors" type="xs:string">
+      <xs:annotation><xs:documentation>Colors drawn on a swatch, such as the colors of a palette (separated by spaces or commas).</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Position">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="TopLeft"/>
+          <xs:enumeration value="Top"/>
+          <xs:enumeration value="TopRight"/>
+          <xs:enumeration value="Left"/>
+          <xs:enumeration value="Center"/>
+          <xs:enumeration value="Right"/>
+          <xs:enumeration value="BottomLeft"/>
+          <xs:enumeration value="Bottom"/>
+          <xs:enumeration value="BottomRight"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="When" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="ChoiceType">
+    <xs:sequence>
+      <xs:element name="Option" type="OptionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Property" type="xs:string" use="required"/>
+    <xs:attribute name="Appearance" type="AppearanceType"/>
+  </xs:complexType>
+
+  <xs:complexType name="NumberType">
+    <xs:annotation><xs:documentation>A number: the options as steps, and a box for any other value.</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="Option" type="OptionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Property" type="xs:string" use="required"/>
+    <xs:attribute name="Minimum" type="xs:double"/>
+    <xs:attribute name="Maximum" type="xs:double"/>
+    <xs:attribute name="Unit" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="ColorType">
+    <xs:annotation><xs:documentation>A brush or color property: the options as swatches (a default palette without options), and a box for any other color.</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="Option" type="OptionType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Property" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="TextType">
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Property" type="xs:string" use="required"/>
+    <xs:attribute name="Placeholder" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="PresetsType">
+    <xs:annotation><xs:documentation>Choices that each set several properties at once; a preset shows as selected when all its values are set.</xs:documentation></xs:annotation>
+    <xs:sequence>
+      <xs:element name="Preset" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Set" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:attribute name="Target" type="xs:string"/>
+                <xs:attribute name="Property" type="xs:string" use="required"/>
+                <xs:attribute name="Value" type="xs:string">
+                  <xs:annotation><xs:documentation>Missing: the preset removes the property.</xs:documentation></xs:annotation>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+          <xs:attribute name="Label" type="xs:string" use="required"/>
+          <xs:attribute name="Icon" type="xs:string"/>
+          <xs:attribute name="Description" type="xs:string"/>
+          <xs:attribute name="Colors" type="xs:string"/>
+          <xs:attribute name="When" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="Appearance" type="AppearanceType"/>
+  </xs:complexType>
+
+  <xs:group name="ItemContent">
+    <xs:choice>
+      <xs:element name="Toggle" type="ToggleType"/>
+      <xs:element name="Choice" type="ChoiceType"/>
+      <xs:element name="Number" type="NumberType"/>
+      <xs:element name="Color" type="ColorType"/>
+      <xs:element name="Text" type="TextType"/>
+      <xs:element name="Presets" type="PresetsType"/>
+      <xs:element name="SetProperty" type="SetPropertyType"/>
+      <xs:element name="SampleData" type="SampleDataType">
+        <xs:annotation><xs:documentation>XAML children inserted into the target (or into Property, with exactly one child).</xs:documentation></xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="ItemsType">
+    <xs:annotation><xs:documentation>Edits each child element at Target (such as the series of a chart) with the settings it contains; Add buttons insert new ones.</xs:documentation></xs:annotation>
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="ItemContent"/>
+      <xs:element name="Add">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any namespace="##any" processContents="lax" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="Label" type="xs:string" use="required"/>
+          <xs:attribute name="Description" type="xs:string"/>
+          <xs:attribute name="When" type="xs:string">
+            <xs:annotation><xs:documentation>Shows the button only when the conditions hold for the selected element, such as is:prefix:Type.</xs:documentation></xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+    <xs:attributeGroup ref="Common"/>
+    <xs:attribute name="ItemLabel" type="xs:string">
+      <xs:annotation><xs:documentation>The property shown as the name of each item, or a pattern of properties such as "{From} to {To}".</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ItemType" type="xs:string">
+      <xs:annotation><xs:documentation>prefix:Type: list only the children of that type (or a derived type), such as the ranges among the marks and labels of a gauge.</xs:documentation></xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:group name="SectionContent">
+    <xs:choice>
+      <xs:group ref="ItemContent"/>
+      <xs:element name="Items" type="ItemsType"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name="Designer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Control" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="Toggle" type="ToggleType"/>
+              <xs:element name="Choice" type="ChoiceType"/>
+              <xs:element name="SetProperty" type="SetPropertyType"/>
+              <xs:element name="SampleData" type="SampleDataType"/>
+              <xs:element name="Panel">
+                <xs:annotation><xs:documentation>A bar button that opens a panel on the left, like the Position panel.</xs:documentation></xs:annotation>
+                <xs:complexType>
+                  <xs:choice maxOccurs="unbounded">
+                    <xs:group ref="SectionContent"/>
+                    <xs:element name="Section">
+                      <xs:annotation><xs:documentation>A titled group of settings that the user can fold. It starts folded.</xs:documentation></xs:annotation>
+                      <xs:complexType>
+                        <xs:group ref="SectionContent" maxOccurs="unbounded"/>
+                        <xs:attributeGroup ref="Common"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                  <xs:attributeGroup ref="Common"/>
+                  <xs:attribute name="Icon" type="xs:string">
+                    <xs:annotation><xs:documentation>Name of an icon of icons.xml, shown on the bar button.</xs:documentation></xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="IconOf" type="xs:string">
+                    <xs:annotation><xs:documentation>The bar button shows the icon of the current option of the Choice of this property.</xs:documentation></xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:attribute name="Type" type="xs:QName" use="required">
+              <xs:annotation><xs:documentation>prefix:TypeName, resolved with the namespace declarations of the file.</xs:documentation></xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="TopmostProperties" type="xs:string"/>
+            <xs:attribute name="HiddenProperties" type="xs:string"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

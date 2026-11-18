@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Schema of add-on galleries (gallery.xml). The file uses the XAML presentation namespace as its
+  default namespace, so snippets need no xmlns of their own:
+    <Gallery xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation https://xaml.io/addons/gallery.xsd">
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           targetNamespace="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+           elementFormDefault="qualified">
+
+  <xs:simpleType name="Platforms">
+    <xs:annotation><xs:documentation>Comma-separated: Xamlio, OpenSilver, OpenSilverVsCode, XRSharp, XRSharpPlayground, All. Omitted: inherited from the parent.</xs:documentation></xs:annotation>
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:simpleType name="Bool">
+    <xs:annotation><xs:documentation>true or false (any case); 1 and 0 are not accepted.</xs:documentation></xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[tT][rR][uU][eE]|[fF][aA][lL][sS][eE]"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="Gallery">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Section" minOccurs="0" maxOccurs="unbounded">
+          <xs:annotation><xs:documentation>A rail item. Sections with the same Name merge across add-ons; AI and Addons are reserved.</xs:documentation></xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Group" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="Item">
+                      <xs:annotation><xs:documentation>Exactly one XAML element: the snippet inserted on drop.</xs:documentation></xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:any namespace="##any" processContents="lax"/>
+                        </xs:sequence>
+                        <xs:attribute name="Name" type="xs:string" use="required"/>
+                        <xs:attribute name="Label" type="xs:string"/>
+                        <xs:attribute name="Icon" type="xs:string"/>
+                        <xs:attribute name="Description" type="xs:string"/>
+                        <xs:attribute name="Keywords" type="xs:string">
+                          <xs:annotation><xs:documentation>Comma-separated extra search terms.</xs:documentation></xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="ItemType" default="UIElement">
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:enumeration value="UIElement"/>
+                              <xs:enumeration value="UIElement3D"/>
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                        <xs:attribute name="DefaultWidth" type="xs:double"/>
+                        <xs:attribute name="DefaultHeight" type="xs:double"/>
+                        <xs:attribute name="ApplyDropProperties" type="Bool" default="true"/>
+                        <xs:attribute name="ApplyDefaultWidth" type="Bool" default="true"/>
+                        <xs:attribute name="Platforms" type="Platforms"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ItemRef">
+                      <xs:annotation><xs:documentation>Shows an item defined in another group of the same add-on.</xs:documentation></xs:annotation>
+                      <xs:complexType>
+                        <xs:attribute name="Name" type="xs:string" use="required"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:choice>
+                  <xs:attribute name="Name" type="xs:string" use="required"/>
+                  <xs:attribute name="Label" type="xs:string"/>
+                  <xs:attribute name="Appearance" default="Normal">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="Normal"/>
+                        <xs:enumeration value="Compact"/>
+                        <xs:enumeration value="IconOnly"/>
+                        <xs:enumeration value="Details"/>
+                        <xs:enumeration value="Button"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="IsHeaderVisible" type="Bool" default="true"/>
+                  <xs:attribute name="MaxDisplayedItems" type="xs:positiveInteger"/>
+                  <xs:attribute name="Platforms" type="Platforms"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="Name" type="xs:string" use="required"/>
+            <xs:attribute name="Label" type="xs:string"/>
+            <xs:attribute name="Icon" type="xs:string"/>
+            <xs:attribute name="Platforms" type="Platforms"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

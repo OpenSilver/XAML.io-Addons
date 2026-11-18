@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Schema of add-on icons (icons.xml). Each icon holds one SVG element.
+    <Icons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="https://xaml.io/addons/icons.xsd">
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="Icons">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Icon" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:any namespace="##any" processContents="skip"/>
+            </xs:sequence>
+            <xs:attribute name="Name" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

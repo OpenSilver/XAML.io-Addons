@@ -1,0 +1,92 @@
+<Designer
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation ../../schemas/designer.xsd"
+    xmlns:controlskit="clr-namespace:OpenSilver.ControlsKit;assembly=OpenSilver.ControlsKit.Controls">
+
+  <Control Type="controlskit:FlexPanel" TopmostProperties="Orientation,JustifyContent,AlignItems">
+    <Panel Label="Layout" Icon="flexpanel" ToolTip="Direction, spacing and alignment of the items"
+           Description="How the items flow in the panel and line up, like a CSS flexbox.">
+      <Choice Property="Orientation" Label="Direction">
+        <Option Label="Row" Value="Horizontal" />
+        <Option Label="Column" Value="Vertical" />
+      </Choice>
+      <Choice Property="JustifyContent" Label="Spread" ToolTip="Where the items go along the direction">
+        <Option Label="Start" Value="Start" />
+        <Option Label="Center" Value="Center" />
+        <Option Label="End" Value="End" />
+        <Option Label="Between" Value="SpaceBetween" />
+        <Option Label="Around" Value="SpaceAround" />
+        <Option Label="Evenly" Value="SpaceEvenly" />
+      </Choice>
+      <Choice Property="AlignItems" Label="Align" ToolTip="How the items line up across the direction">
+        <Option Label="Start" Value="Start" />
+        <Option Label="Center" Value="Center" />
+        <Option Label="End" Value="End" />
+        <Option Label="Stretch" Value="Stretch" />
+      </Choice>
+      <Number Property="Spacing" Label="Spacing" Unit="px" Minimum="0" Maximum="200" Description="The gap between two items.">
+        <Option Label="None" Value="0" />
+        <Option Label="Small" Value="8" />
+        <Option Label="Large" Value="16" />
+      </Number>
+      <Choice Property="AlignContent" Label="Lines" Appearance="List" Description="Where the lines go when the items wrap onto several lines." />
+      <SampleData Label="Add items" ToolTip="Add three sample items">
+        <Border Width="48" Height="48" Background="#EF5350" />
+        <Border Width="48" Height="48" Background="#34D399" />
+        <Border Width="48" Height="48" Background="#6366F1" />
+      </SampleData>
+    </Panel>
+  </Control>
+
+  <Control Type="controlskit:StaggeredPanel" TopmostProperties="DesiredColumnWidth,ColumnSpacing,RowSpacing">
+    <Panel Label="Tiles" Icon="staggeredpanel" ToolTip="Columns and spacing of the tiles"
+           Description="Tiles of different heights packed into columns, without gaps. Give each tile the width of a column.">
+      <Number Property="DesiredColumnWidth" Label="Column width" Unit="px" Minimum="20" Maximum="1000"
+              Description="The panel makes as many columns of about this width as fit.">
+        <Option Label="Narrow" Value="120" />
+        <Option Label="Normal" />
+        <Option Label="Wide" Value="400" />
+      </Number>
+      <Number Property="ColumnSpacing" Label="Between columns" Unit="px" Minimum="0" Maximum="100">
+        <Option Label="None" Value="0" />
+        <Option Label="Small" Value="8" />
+        <Option Label="Large" Value="16" />
+      </Number>
+      <Number Property="RowSpacing" Label="Between tiles" Unit="px" Minimum="0" Maximum="100">
+        <Option Label="None" Value="0" />
+        <Option Label="Small" Value="8" />
+        <Option Label="Large" Value="16" />
+      </Number>
+      <SampleData Label="Add tiles" ToolTip="Add five tiles of different heights">
+        <Border Width="70" Height="60" Background="#EF5350" />
+        <Border Width="70" Height="100" Background="#34D399" />
+        <Border Width="70" Height="80" Background="#6366F1" />
+        <Border Width="70" Height="50" Background="#FBBF24" />
+        <Border Width="70" Height="70" Background="#2DD4BF" />
+      </SampleData>
+    </Panel>
+  </Control>
+
+  <Control Type="controlskit:AnimatedNavigationBar" TopmostProperties="SelectedForeground,IndicatorBackground,IndicatorCornerRadius">
+    <Panel Label="Items" Icon="animatednavigationbar" ToolTip="The tabs of the navigation bar and their highlight"
+           Description="Each item is a ListBoxItem: its Content is the text of the tab.">
+      <Items Label="Tabs" Target="." ItemLabel="Content">
+        <Text Property="Content" Label="Text" />
+      </Items>
+      <Color Property="IndicatorBackground" Label="Highlight" ToolTip="The shape that slides under the selected tab" />
+      <Color Property="SelectedForeground" Label="Selected text" />
+      <Number Property="AnimationDuration" Label="Slide duration" Unit="ms" Minimum="0" Maximum="2000">
+        <Option Label="Fast" Value="150" />
+        <Option Label="Normal" />
+        <Option Label="Slow" Value="600" />
+      </Number>
+      <SampleData Label="Add items" ToolTip="Add three navigation items">
+        <ListBoxItem Content="Home" />
+        <ListBoxItem Content="Products" />
+        <ListBoxItem Content="About" />
+      </SampleData>
+    </Panel>
+  </Control>
+
+</Designer>

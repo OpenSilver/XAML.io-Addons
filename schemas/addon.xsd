@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Schema of XAML.io add-on manifests (addon.xml), for editor completion and validation.
+  Reference it from the root element:
+    <Addon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="https://xaml.io/addons/addon.xsd" Id="...">
+  XAML.io validates add-ons itself when loading them; this schema is a convenience for authors.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xs:simpleType name="AddonId">
+    <xs:annotation><xs:documentation>Lowercase letters, digits and dashes; must equal the add-on folder name.</xs:documentation></xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-z0-9][a-z0-9\-]{0,62}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RelativePath">
+    <xs:annotation><xs:documentation>Path relative to the add-on folder, with forward slashes, at most 4 segments of at most 100 characters.</xs:documentation></xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z0-9_][A-Za-z0-9_.\-]{0,99}(/[A-Za-z0-9_][A-Za-z0-9_.\-]{0,99}){0,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="HttpUrl">
+    <xs:annotation><xs:documentation>Absolute http or https URL.</xs:documentation></xs:annotation>
+    <xs:restriction base="xs:anyURI">
+      <xs:pattern value="[hH][tT][tT][pP][sS]?://.+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="Addon">
+    <xs:annotation><xs:documentation>An add-on: display information, linked packages, templates and AI skills.</xs:documentation></xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Packages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Package" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="Id" type="xs:string" use="required"/>
+                  <xs:attribute name="VersionRange" type="xs:string">
+                    <xs:annotation><xs:documentation>NuGet version range, such as [3.3.0,).</xs:documentation></xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="RecommendedVersion" type="xs:string">
+                    <xs:annotation><xs:documentation>Version added when the user enables the add-on.</xs:documentation></xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="Activation" default="Package">
+                    <xs:annotation><xs:documentation>Package: referencing the package enables the add-on, and enabling the add-on adds it. Explicit: listed with the add-on only; it neither enables the add-on nor is added when enabling.</xs:documentation></xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="Package"/>
+                        <xs:enumeration value="Explicit"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Xmlns">
+          <xs:annotation><xs:documentation>Preferred prefix for a namespace used by the add-on.</xs:documentation></xs:annotation>
+          <xs:complexType>
+            <xs:attribute name="Prefix" type="xs:NCName" use="required"/>
+            <xs:attribute name="Uri" type="xs:string" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Screenshots">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Screenshot" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation><xs:documentation>PNG, JPEG or WebP (animated allowed), ideally under 500 KB.</xs:documentation></xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="File" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="RelativePath">
+                        <xs:pattern value=".*\.([pP][nN][gG]|[jJ][pP][eE]?[gG]|[wW][eE][bB][pP])"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Templates">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Template" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation><xs:documentation>Starter solution opened by add-on links; the first one is the default.</xs:documentation></xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="Id" type="xs:string" use="required"/>
+                  <xs:attribute name="File" use="required">
+                    <xs:annotation><xs:documentation>Solution zip under the add-on folder.</xs:documentation></xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="RelativePath">
+                        <xs:pattern value=".*\.[zZ][iI][pP]"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Name" type="xs:string"/>
+                  <xs:attribute name="Description" type="xs:string"/>
+                  <xs:attribute name="StartFile" type="xs:string">
+                    <xs:annotation><xs:documentation>Project-relative file opened first; the main page by default.</xs:documentation></xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Skills">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Skill" minOccurs="0" maxOccurs="unbounded">
+                <xs:annotation><xs:documentation>AI agent skill in skills/{Name}/ (SKILL.md plus Files).</xs:documentation></xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="Name" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-z0-9][a-z0-9\-]{0,62}"/>
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="Files" type="xs:string">
+                    <xs:annotation><xs:documentation>Comma-separated .md paths relative to the skill folder, besides SKILL.md.</xs:documentation></xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Pricing">
+          <xs:annotation><xs:documentation>Shown before enabling; omit it for free add-ons. The text content is a note on how licensing works. XAML.io checks no license: the library enforces its own.</xs:documentation></xs:annotation>
+          <xs:complexType mixed="true">
+            <xs:attribute name="Model" default="Paid">
+              <xs:annotation><xs:documentation>Paid: a license is needed (users and the AI agent confirm before enabling). Freemium: free, with paid features.</xs:documentation></xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="Free"/>
+                  <xs:enumeration value="Paid"/>
+                  <xs:enumeration value="Freemium"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="Price" type="xs:string">
+              <xs:annotation><xs:documentation>Display text, such as "From $495 per developer per year".</xs:documentation></xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="TrialDays" type="xs:positiveInteger"/>
+            <xs:attribute name="PurchaseUrl" type="HttpUrl">
+              <xs:annotation><xs:documentation>Absolute http(s) URL of the store page.</xs:documentation></xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="TrialUrl" type="HttpUrl">
+              <xs:annotation><xs:documentation>Absolute http(s) URL where users get a trial key.</xs:documentation></xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:attribute name="Id" type="AddonId" use="required">
+        <xs:annotation><xs:documentation>Lowercase identifier; must equal the folder name.</xs:documentation></xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Name" type="xs:string"/>
+      <xs:attribute name="PlaygroundName" type="xs:string">
+        <xs:annotation><xs:documentation>Longer name in the playground's banner and welcome ("Welcome to the {PlaygroundName} Playground"); Name when absent.</xs:documentation></xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Publisher" type="xs:string"/>
+      <xs:attribute name="Version" type="xs:string"/>
+      <xs:attribute name="License" type="xs:string"/>
+      <xs:attribute name="Website" type="HttpUrl"/>
+      <xs:attribute name="Description" type="xs:string"/>
+      <xs:attribute name="Highlights" type="xs:string">
+        <xs:annotation><xs:documentation>Short line naming notable items, e.g. "Includes a chart and a gauge.", after the description in the add-on's details.</xs:documentation></xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Icon" type="xs:string">
+        <xs:annotation><xs:documentation>Name of an icon in icons.xml.</xs:documentation></xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="Banner">
+        <xs:annotation><xs:documentation>Image at the top of the add-on's card and details: 2:1 (e.g. 800x400), dark, without text, ideally under 100 KB.</xs:documentation></xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="RelativePath">
+            <xs:pattern value=".*\.([pP][nN][gG]|[jJ][pP][eE]?[gG]|[wW][eE][bB][pP])"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="Activation" default="Default">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Default"/>
+            <xs:enumeration value="Always"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="RailOrder" type="xs:int"/>
+      <xs:attribute name="Slugs" type="xs:string">
+        <xs:annotation><xs:documentation>Comma-separated vanity paths: xaml.io/{slug} opens the add-on.</xs:documentation></xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="PreviewFlag" type="xs:string">
+        <xs:annotation><xs:documentation>Query parameter: the built-in add-on is hidden from the IDE unless the page is opened with ?{PreviewFlag}=true.</xs:documentation></xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

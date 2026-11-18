@@ -1,0 +1,54 @@
+<Icons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../schemas/icons.xsd">
+  <Icon Name="controlskit">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+      <g style="stroke: white; stroke-width: 1.4px; stroke-linecap: round; stroke-linejoin: round;">
+        <rect x="3" y="7.5" width="18" height="12.5" rx="2" />
+        <path d="M9 7.5V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5v2" />
+        <path d="M3 12.5h7M14 12.5h7" />
+        <rect x="10" y="11" width="4" height="3" rx="0.75" />
+      </g>
+    </svg>
+  </Icon>
+  <Icon Name="flexpanel">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.4">
+      <rect x="1.5" y="4.5" width="21" height="15" rx="1.5" />
+      <rect x="3.5" y="8" width="4" height="8" fill="#000" />
+      <rect x="10" y="8" width="4" height="8" fill="#000" />
+      <rect x="16.5" y="8" width="4" height="8" fill="#000" />
+    </svg>
+  </Icon>
+  <Icon Name="staggeredpanel">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000">
+      <rect x="2" y="2" width="6" height="8" rx="1" />
+      <rect x="2" y="12" width="6" height="10" rx="1" />
+      <rect x="9" y="2" width="6" height="12" rx="1" />
+      <rect x="9" y="16" width="6" height="6" rx="1" />
+      <rect x="16" y="2" width="6" height="5" rx="1" />
+      <rect x="16" y="9" width="6" height="13" rx="1" />
+    </svg>
+  </Icon>
+  <Icon Name="adaptivecolumnspanel">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.4">
+      <rect x="1.5" y="3.5" width="13" height="17" rx="1.5" />
+      <rect x="3.5" y="6" width="4" height="12" fill="#000" />
+      <rect x="8.5" y="6" width="4" height="12" fill="#000" />
+      <rect x="17.5" y="3.5" width="5" height="17" rx="1.5" />
+      <path d="M18.5 7h3M18.5 10h3M18.5 13h3" />
+    </svg>
+  </Icon>
+  <Icon Name="animatednavigationbar">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.4">
+      <rect x="1.5" y="7.5" width="21" height="9" rx="4.5" />
+      <rect x="3.5" y="9.5" width="8" height="5" rx="2.5" fill="#000" />
+      <path d="M14 12h6" />
+      <path d="M13 19.5h4m0 0-1.5-1.5m1.5 1.5L15.5 21" />
+    </svg>
+  </Icon>
+  <Icon Name="extendedbutton">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.4">
+      <rect x="1.5" y="6.5" width="21" height="11" rx="3" />
+      <path d="M6 10v3.5m0 0-1.5-1.5M6 13.5 7.5 12M4.5 15h3" />
+      <path d="M10.5 12h8" />
+    </svg>
+  </Icon>
+</Icons>

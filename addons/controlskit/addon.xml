@@ -1,0 +1,37 @@
+﻿<Addon
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../schemas/addon.xsd"
+    Id="controlskit"
+    Name="ControlsKit"
+    Publisher="Userware"
+    Version="3.4.0-Preview"
+    License="MIT"
+    Icon="controlskit"
+    Banner="assets/Banner.webp"
+    Website="https://github.com/OpenSilver/OpenSilver.ControlsKit"
+    Slugs="controlskit"
+    Description="Open-source panels and controls for OpenSilver."
+    Highlights="Includes flexbox, masonry, responsive layouts, and richer buttons and switches.">
+
+  <Packages>
+    <Package Id="OpenSilver.ControlsKit" VersionRange="[3.4.0-preview-2026-10-28-163447-eb332e2,)" RecommendedVersion="3.4.0-preview-2026-10-28-163447-eb332e2" Activation="Package" />
+  </Packages>
+
+  <Xmlns Prefix="controlskit" Uri="clr-namespace:OpenSilver.ControlsKit;assembly=OpenSilver.ControlsKit.Controls" />
+  <Xmlns Prefix="controlskitcontrols" Uri="clr-namespace:OpenSilver.ControlsKit.Controls;assembly=OpenSilver.ControlsKit.Controls" />
+
+  <Screenshots>
+    <Screenshot File="assets/FlexPanel.png" />
+    <Screenshot File="assets/AnimatedNavigationBar.webp" />
+    <Screenshot File="assets/AdaptiveColumnsPanel.webp" />
+    <Screenshot File="assets/StaggeredPanel.png" />
+  </Screenshots>
+
+  <Templates>
+    <Template Id="showcase" Name="ControlsKit showcase" File="templates/showcase.zip" StartFile="MainWindow.xaml"
+              Description="A page using FlexPanel, StaggeredPanel, AnimatedNavigationBar, ExtendedButton and ExtendedSwitch." />
+  </Templates>
+  <Skills>
+    <Skill Name="controlskit" Files="reference/panels.md, reference/controls.md" />
+  </Skills>
+</Addon>
