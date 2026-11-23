@@ -194,8 +194,9 @@ Namespace declarations on `<Gallery>` (or any ancestor) are copied into each sni
 | Attribute | Default | Meaning |
 |---|---|---|
 | `Name` | required | Identity. Sections with the same name across add-ons merge into one rail item (the built-in ones are `Controls` and `Layout`). `AI` and `Addons` are reserved by the IDE. |
-| `Label` | `Name` | Rail tooltip/label. |
-| `Icon` | none | Icon name. When sections merge, the first add-on's label and icon win. |
+| `Label` | `Name` | The text under the rail icon. The tile is narrow: a word such as "Controls" fills a line. Lines break between words and, in a longer word, before a capital letter (`ComponentOne` shows as "Component" / "One"); a part that still doesn't fit is condensed. Prefer one or two short words. |
+| `ToolTip` | none | Shown when hovering the rail item, such as the full name when `Label` is an abbreviation (`Label="C1" ToolTip="ComponentOne"`). Leave it out when it would repeat the label: there is then no tooltip. |
+| `Icon` | none | Icon name. When sections merge, the first add-on's label, tooltip and icon win. |
 | `Platforms` | all | See below. |
 
 ### `<Group>`

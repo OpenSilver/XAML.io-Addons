@@ -88,7 +88,12 @@
               </xs:element>
             </xs:sequence>
             <xs:attribute name="Name" type="xs:string" use="required"/>
-            <xs:attribute name="Label" type="xs:string"/>
+            <xs:attribute name="Label" type="xs:string">
+              <xs:annotation><xs:documentation>The text under the rail icon; Name by default. The tile is narrow: prefer one or two short words. A long word breaks before a capital letter (ComponentOne: Component / One).</xs:documentation></xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="ToolTip" type="xs:string">
+              <xs:annotation><xs:documentation>Shown when hovering the rail item, such as the full name when Label is an abbreviation. No tooltip when missing.</xs:documentation></xs:annotation>
+            </xs:attribute>
             <xs:attribute name="Icon" type="xs:string"/>
             <xs:attribute name="Platforms" type="Platforms"/>
           </xs:complexType>

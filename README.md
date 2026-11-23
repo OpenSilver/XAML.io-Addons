@@ -59,7 +59,7 @@ Your folder now holds:
 
 **`gallery.xml`**
 
-Declare your namespace once on the `<Gallery>` element, then list your controls. A `<Section>` is an icon in the toolbox, a `<Group>` a heading inside it, and an `<Item>` a control that can be dropped:
+Declare your namespace once on the `<Gallery>` element, then list your controls. A `<Section>` is an icon in the toolbox, with its `Label` under it, a `<Group>` a heading inside it, and an `<Item>` a control that can be dropped. The toolbox is narrow, so keep the section's `Label` to one or two short words, such as your product name:
 
 ```xml
 <Section Name="AcmeCharts" Label="Acme Charts" Icon="acme">

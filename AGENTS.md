@@ -16,7 +16,7 @@ This repository holds add-ons for [XAML.io](https://xaml.io), the online IDE for
    - For each control: its namespace and assembly, the properties a user sets first, and their value types.
 3. Write the files, starting from a copy of `addons/controlskit/`:
    - `addon.xml`: `Id` equal to the folder name; `Name`, `Publisher`, `Version` (of the add-on, start at `1.0`), `License`, `Website`, a one-sentence `Description`; `<Package>` with `VersionRange` and `RecommendedVersion`; `<Xmlns>`. Replace `Slugs="controlskit"` with the id, or remove it.
-   - `gallery.xml`: one `<Section>` named after the library, `<Group>`s by kind of control, one `<Item>` per control.
+   - `gallery.xml`: one `<Section>` named after the library, with a short `Label` (it shows under the rail icon), `<Group>`s by kind of control, one `<Item>` per control.
    - `icons.xml`: an icon for the add-on, the section and each item.
    - Optional: `designer.xml` (toolbar buttons for the selected control), `skills/<name>/SKILL.md` (guidance for the XAML.io AI agent), `templates/`. Remove them and their elements in `addon.xml` unless the user asked for them.
 4. Run `dotnet run tools/validate.cs` from the repository root and fix every problem until it prints `no problems found`.
