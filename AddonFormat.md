@@ -22,19 +22,19 @@ Each file has a schema (`addon.xsd`, `gallery.xsd`, `icons.xsd`, `designer.xsd`,
 
 ## `index.xml`
 
-Maintained by the XAML.io team in XAML.io; add-on authors do not write one. Lists the add-ons to load. Each `Id` is also the folder name.
+Maintained by the XAML.io team in XAML.io; add-on authors do not write one. Lists the add-ons to load. Each `Id` is also the folder name, and `Files` lists the optional files the folder has (`gallery.xml`, `icons.xml`, `designer.xml`, separated by spaces).
 
 ```xml
 <Addons>
-  <Addon Id="opensilver" />
-  <Addon Id="componentone" />
-  <Addon Id="controlskit" />
+  <Addon Id="opensilver" Files="gallery.xml icons.xml" />
+  <Addon Id="componentone" Files="gallery.xml icons.xml designer.xml" />
+  <Addon Id="controlskit" Files="gallery.xml icons.xml designer.xml" />
 </Addons>
 ```
 
-The add-ons panel lists the add-ons in this order.
+The add-ons panel lists the add-ons in this order. The IDE requests `addon.xml` and only the listed files, because the browser console reports a 404 for every missing file it requests, even though a missing optional file is not an error. Without `Files`, it tries all three.
 
-A unit test fails if a folder is missing from the index or the other way round.
+A unit test fails if a folder is missing from the index or the other way round, or if `Files` doesn't match the folder's content.
 
 ## `<id>/addon.xml`
 
