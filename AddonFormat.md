@@ -7,18 +7,18 @@ Paths below are relative to the `addons/` folder that holds the add-on folders. 
 <!-- Also published verbatim in the XAML.io-Addons repository (scripts/addons/export-to-addons-repo.ps1): keep it free of links into this repository. -->
 
 
-Each file has a schema (`addon.xsd`, `gallery.xsd`, `icons.xsd`, `designer.xsd`, and `index.xsd` in XAML.io), served at `https://xaml.io/addons/<name>.xsd`. Reference it from the root element for completion and validation in the editor; the loader ignores `xsi:` attributes:
+Each file has a schema (`addon.xsd`, `gallery.xsd`, `icons.xsd`, `designer.xsd`, and `index.xsd` in XAML.io), served at `https://xaml.io/schemas/<name>.xsd`. Reference it from the root element for completion and validation in the editor; the loader ignores `xsi:` attributes:
 
 ```xml
 <Addon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="https://xaml.io/addons/addon.xsd" Id="...">
+       xsi:noNamespaceSchemaLocation="https://xaml.io/schemas/addon.xsd" Id="...">
 
 <Gallery xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation https://xaml.io/addons/gallery.xsd">
+         xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation https://xaml.io/schemas/gallery.xsd">
 ```
 
-`gallery.xsd` and `designer.xsd` target the XAML presentation namespace, because those files use it as their default namespace for the snippets. The schemas check structure, names and enumerations; the loader's checks (icons resolve, unique names, snippets parse) remain the reference. Relative paths work offline: `../../schemas/addon.xsd` in the XAML.io-Addons repository, whose schemas are in `schemas/`, and `../addon.xsd` in XAML.io, whose schemas sit next to the add-on folders.
+`gallery.xsd` and `designer.xsd` target the XAML presentation namespace, because those files use it as their default namespace for the snippets. The schemas check structure, names and enumerations; the loader's checks (icons resolve, unique names, snippets parse) remain the reference. Relative paths work offline: `../../schemas/addon.xsd` from `addons/<id>/`, the same in XAML.io and in the XAML.io-Addons repository, which both have `schemas/` next to `addons/`.
 
 ## `index.xml`
 
@@ -90,7 +90,7 @@ A unit test fails if a folder is missing from the index or the other way round, 
 | `<Package>` | No | NuGet package linked to the add-on. `Activation="Package"` (default) enables the add-on when the project references the package, and enabling the add-on adds the package at `RecommendedVersion`, else at the inclusive lower bound of `VersionRange` (NuGet range syntax). With neither, enabling adds an `<XamlioAddon>` item instead of the package (warning). `Explicit` lists the package with the add-on only: referencing it does not enable the add-on, and enabling the add-on does not add it. |
 | `<Xmlns>` | No | Preferred prefix for a namespace used by the add-on. Prefixes are validated today and will be used by C# snippets and the AI agent. |
 | `<Screenshot File>` | No | Image under the add-on folder (`.png`, `.jpg`, `.jpeg` or `.webp`, animated allowed), as a relative path with forward slashes and at most 4 segments. Keep each file small: they are downloaded when the add-ons panel shows the add-on. |
-| `Slugs` | No | Comma-separated vanity paths, so `xaml.io/<slug>` opens the add-on like `xaml.io/a/<id>`. Lowercase letters, digits and dashes; paths the IDE uses (`a`, `s`, `addons`, `launchers` and its other folders) are rejected. A slug claimed by two add-ons stays with the first one in `index.xml`. |
+| `Slugs` | No | Comma-separated vanity paths, so `xaml.io/<slug>` opens the add-on like `xaml.io/a/<id>`. Lowercase letters, digits and dashes; paths the IDE uses (`a`, `s`, `addons`, `schemas`, `launchers` and its other folders) are rejected. A slug claimed by two add-ons stays with the first one in `index.xml`. |
 | `<Template>` | No | Starter solution opened by add-on links. `Id` and `File` (a `.zip` under the add-on folder) are required; `StartFile` is the project-relative file opened first (default: the main page). The first template is the default. See [Templates](#templates). |
 | `<Skill>` | No | AI agent skill in `skills/<Name>/`. `Files` lists the files besides `SKILL.md`. See [Skills](#skills). |
 | `<Pricing>` | No | For commercial libraries; omit it for free add-ons. See [Pricing](#pricing). |

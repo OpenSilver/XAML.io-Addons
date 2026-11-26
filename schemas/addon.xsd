@@ -3,7 +3,7 @@
   Schema of XAML.io add-on manifests (addon.xml), for editor completion and validation.
   Reference it from the root element:
     <Addon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:noNamespaceSchemaLocation="https://xaml.io/addons/addon.xsd" Id="...">
+           xsi:noNamespaceSchemaLocation="https://xaml.io/schemas/addon.xsd" Id="...">
   XAML.io validates add-ons itself when loading them; this schema is a convenience for authors.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">

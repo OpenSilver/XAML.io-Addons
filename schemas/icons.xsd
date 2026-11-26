@@ -2,7 +2,7 @@
 <!--
   Schema of add-on icons (icons.xml). Each icon holds one SVG element.
     <Icons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:noNamespaceSchemaLocation="https://xaml.io/addons/icons.xsd">
+           xsi:noNamespaceSchemaLocation="https://xaml.io/schemas/icons.xsd">
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <xs:element name="Icons">
