@@ -69,6 +69,9 @@
       <xs:annotation><xs:documentation>Missing: the option removes the property, such as "Automatic" or "Same as chart" (it then needs a Label).</xs:documentation></xs:annotation>
     </xs:attribute>
     <xs:attribute name="Label" type="xs:string"/>
+    <xs:attribute name="Type" type="xs:string">
+      <xs:annotation><xs:documentation>prefix:Type, for the options of a Choice without a Property: choosing the option gives the element this type, keeping the properties the type has.</xs:documentation></xs:annotation>
+    </xs:attribute>
     <xs:attribute name="Icon" type="xs:string">
       <xs:annotation><xs:documentation>Name of an icon of icons.xml: in a panel, options with icons show as tiles.</xs:documentation></xs:annotation>
     </xs:attribute>
@@ -95,12 +98,29 @@
   </xs:complexType>
 
   <xs:complexType name="ChoiceType">
+    <xs:annotation><xs:documentation>One value of a property among the options. Without a Property, the options have a Type and change the type of the element.</xs:documentation></xs:annotation>
     <xs:sequence>
       <xs:element name="Option" type="OptionType" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attributeGroup ref="Common"/>
-    <xs:attribute name="Property" type="xs:string" use="required"/>
+    <xs:attribute name="Property" type="xs:string"/>
     <xs:attribute name="Appearance" type="AppearanceType"/>
+    <xs:attribute name="PropertiesOf" type="xs:string">
+      <xs:annotation><xs:documentation>A property of the selected element holding a collection, such as ItemsSource: the choice also lists the properties of its items, as a drop-down (a text box while the items are unknown).</xs:documentation></xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="PropertyKind">
+      <xs:annotation><xs:documentation>Which properties of the items PropertiesOf lists: Values (default), Collections (such as the children in a tree) or All.</xs:documentation></xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Values"/>
+          <xs:enumeration value="Collections"/>
+          <xs:enumeration value="All"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Placeholder" type="xs:string">
+      <xs:annotation><xs:documentation>The hint of the text box shown by a PropertiesOf choice while the items are unknown.</xs:documentation></xs:annotation>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="NumberType">
