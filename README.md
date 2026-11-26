@@ -46,7 +46,7 @@ Your folder now holds:
 
   ```xml
   <Packages>
-    <Package Id="Acme.Charts" VersionRange="[2.0.0,)" RecommendedVersion="2.1.0" />
+    <Package Id="Acme.Charts" RecommendedVersion="2.1.0" />
   </Packages>
   ```
 

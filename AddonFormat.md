@@ -55,7 +55,7 @@ A unit test fails if a folder is missing from the index or the other way round, 
     Highlights="Includes flexbox and masonry layouts and an animated navigation bar.">
 
   <Packages>
-    <Package Id="OpenSilver.ControlsKit" VersionRange="[3.4.0-preview-2026-10-28-163447-eb332e2,)" RecommendedVersion="3.4.0-preview-2026-10-28-163447-eb332e2" Activation="Package" />
+    <Package Id="OpenSilver.ControlsKit" RecommendedVersion="3.4.0-preview-2026-10-28-163447-eb332e2" Activation="Package" />
   </Packages>
 
   <Xmlns Prefix="controlskit" Uri="clr-namespace:OpenSilver.ControlsKit;assembly=OpenSilver.ControlsKit.Controls" />
@@ -87,7 +87,7 @@ A unit test fails if a folder is missing from the index or the other way round, 
 | `Activation` | No | `Default` (enabled by packages or explicitly) or `Always` (enabled in every project). |
 | `RailOrder` | No | Integer; lower values come first among add-ons that are not `Always`. |
 | `PreviewFlag` | No | Set by the XAML.io team. A query parameter name, such as `EnableC1Preview`, for an add-on not released yet: the built-in add-on is left out of the whole IDE (add-ons panel, rail, search, designer, AI agent, `xaml.io/<slug>` links) unless the page is opened with `?EnableC1Preview=true`. The flag is read from the address the page was opened with, so it also works with links such as `xaml.io/componentone?EnableC1Preview=true`. Remove the attribute to release the add-on; no rebuild is needed. Imported (local) add-ons ignore it. |
-| `<Package>` | No | NuGet package linked to the add-on. `Activation="Package"` (default) enables the add-on when the project references the package, and enabling the add-on adds the package at `RecommendedVersion`, else at the inclusive lower bound of `VersionRange` (NuGet range syntax). With neither, enabling adds an `<XamlioAddon>` item instead of the package (warning). `Explicit` lists the package with the add-on only: referencing it does not enable the add-on, and enabling the add-on does not add it. |
+| `<Package>` | No | NuGet package linked to the add-on. `Activation="Package"` (default) enables the add-on when the project references the package, and enabling the add-on adds the package at `RecommendedVersion`. Without `RecommendedVersion`, enabling adds an `<XamlioAddon>` item instead of the package (warning). `Explicit` lists the package with the add-on only: referencing it does not enable the add-on, and enabling the add-on does not add it. |
 | `<Xmlns>` | No | Preferred prefix for a namespace used by the add-on. Prefixes are validated today and will be used by C# snippets and the AI agent. |
 | `<Screenshot File>` | No | Image under the add-on folder (`.png`, `.jpg`, `.jpeg` or `.webp`, animated allowed), as a relative path with forward slashes and at most 4 segments. Keep each file small: they are downloaded when the add-ons panel shows the add-on. |
 | `Slugs` | No | Comma-separated vanity paths, so `xaml.io/<slug>` opens the add-on like `xaml.io/a/<id>`. Lowercase letters, digits and dashes; paths the IDE uses (`a`, `s`, `addons`, `schemas`, `launchers` and its other folders) are rejected. A slug claimed by two add-ons stays with the first one in `index.xml`. |

@@ -39,9 +39,6 @@
               <xs:element name="Package" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                   <xs:attribute name="Id" type="xs:string" use="required"/>
-                  <xs:attribute name="VersionRange" type="xs:string">
-                    <xs:annotation><xs:documentation>NuGet version range, such as [3.3.0,).</xs:documentation></xs:annotation>
-                  </xs:attribute>
                   <xs:attribute name="RecommendedVersion" type="xs:string">
                     <xs:annotation><xs:documentation>Version added when the user enables the add-on.</xs:documentation></xs:annotation>
                   </xs:attribute>
