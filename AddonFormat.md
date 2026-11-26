@@ -127,6 +127,7 @@ description: OpenSilver.ControlsKit controls (FlexPanel, ...). Use when the page
 - Markdown files must be UTF-8 without a BOM (a BOM is stripped when loading). Keep skills small: the agent accepts at most 8 skills per run and 512 KB for all of them together, and drops the skills that do not fit.
 - XAML.io generates `gallery.md` from the add-on's `Xamlio` gallery snippets, adds it to the first skill (when that skill lists fewer than 39 files and none of that name), and links it at the end of `SKILL.md`. An add-on with a gallery and no skill gets a generated skill named after its id with just that file. So do not repeat the gallery snippets in the skill.
 - Write it for a model that knows OpenSilver/WPF but not this library: the package and `xmlns` to use, which control fits which need, property names and value types that differ from WPF, and pitfalls. Check every claim against the library source.
+- Describe the library, not XAML.io or the agent's environment: no file paths, project names, package feeds or package versions. XAML.io tells the agent which project to change and which version to add (`RecommendedVersion`), and these can change without the add-on.
 
 ### Pricing
 

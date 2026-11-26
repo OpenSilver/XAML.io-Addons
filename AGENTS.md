@@ -30,5 +30,5 @@ This repository holds add-ons for [XAML.io](https://xaml.io), the online IDE for
 - Item names are unique in the add-on. To show an item in a second group, use `<ItemRef Name="..."/>`.
 - Every `Icon="..."` names an icon of `icons.xml`. Icons are single-color SVGs with `viewBox="0 0 24 24"` and no `width` or `height`, colored with `fill` and `stroke` attributes (not `style`) and `fill="none"` for outlines: XAML.io repaints them with the theme color.
 - Images (`Banner`, `<Screenshot>`) are PNG, JPEG or WebP under 500 KB. Do not invent or generate screenshots: leave them out and tell the user to add them.
-- A skill's folder name, its `Name` in `addon.xml` and the `name:` of its `SKILL.md` frontmatter are equal, and `Files` lists every other file of the skill. Do not repeat the gallery snippets in a skill: XAML.io adds them.
+- A skill's folder name, its `Name` in `addon.xml` and the `name:` of its `SKILL.md` frontmatter are equal, and `Files` lists every other file of the skill. Do not repeat the gallery snippets in a skill: XAML.io adds them. A skill describes the library only: no file paths, project names, package feeds or package versions, which XAML.io gives the agent.
 - For a commercial library, add `<Pricing>` ([format](AddonFormat.md#pricing)), with the price and trial from the vendor's website.

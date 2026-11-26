@@ -14,7 +14,7 @@
     Highlights="Includes flexbox, masonry, responsive layouts, and richer buttons and switches.">
 
   <Packages>
-    <Package Id="OpenSilver.ControlsKit" VersionRange="[3.4.0-preview-2026-10-28-163447-eb332e2,)" RecommendedVersion="3.4.0-preview-2026-10-28-163447-eb332e2" Activation="Package" />
+    <Package Id="OpenSilver.ControlsKit" RecommendedVersion="3.4.0-preview-2026-10-28-163447-eb332e2" Activation="Package" />
   </Packages>
 
   <Xmlns Prefix="controlskit" Uri="clr-namespace:OpenSilver.ControlsKit;assembly=OpenSilver.ControlsKit.Controls" />
