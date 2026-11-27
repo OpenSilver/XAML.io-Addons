@@ -1,0 +1,101 @@
+<Gallery
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation ../../schemas/gallery.xsd"
+    xmlns:tg="clr-namespace:TreeGrid.Wpf;assembly=TreeGrid.OpenSilver"
+    xmlns:cols="clr-namespace:TreeGrid.Wpf.Columns;assembly=TreeGrid.OpenSilver"
+    xmlns:headers="clr-namespace:TreeGrid.Wpf.Headers;assembly=TreeGrid.OpenSilver">
+
+  <Section Name="TreeGrid" Label="Tree Grid" Icon="treegrid">
+
+    <Group Name="TreeGrids" Label="Tree grids" Appearance="Details" MaxDisplayedItems="4">
+      <Item Name="TreeGrid" Label="Tree Grid" Icon="treegrid" Keywords="tree,treegrid,tree grid,treelist,hierarchy,nested,datagrid,grid,table,org,team"
+            Description="A team and the people reporting to each person, with the main features on: check boxes, filters in the headers, grouping by dragging a header to the top, editing by double-clicking, dragging rows, and right-click menus. Set ChildPropertyName to the property holding the children."
+            DefaultWidth="720" DefaultHeight="360">
+        <tg:TreeGridControl ItemsSource="{Binding SampleData.Team}" ChildPropertyName="Reports" AutoExpandLevels="1" ShowAlternatingRows="True"
+                            AllowCheckBoxSelection="True" AllowFiltering="True" AllowGrouping="True" ShowGroupDropArea="True"
+                            AllowEditing="True" AllowRowDragDrop="True" ShowDefaultContextMenus="True">
+          <tg:TreeGridControl.Columns>
+            <cols:TreeGridTextColumn MappingName="Name" HeaderText="Name" Width="165" />
+            <cols:TreeGridTextColumn MappingName="Title" HeaderText="Title" Width="160" />
+            <cols:TreeGridTextColumn MappingName="Department" HeaderText="Department" Width="105" />
+            <cols:TreeGridNumericColumn MappingName="Salary" HeaderText="Salary" Width="90" DisplayFormat="{}{0:C0}" />
+            <cols:TreeGridBooleanIconColumn MappingName="Available" HeaderText="Available" Width="90" TrueText="Available" FalseText="Away" />
+            <cols:TreeGridProgressBarColumn MappingName="Goals" HeaderText="Goals" Width="90" />
+          </tg:TreeGridControl.Columns>
+        </tg:TreeGridControl>
+      </Item>
+      <Item Name="ProjectPlan" Label="Project Plan" Icon="projectplan" Keywords="project,plan,tasks,wbs,schedule,gantt,progress,checklist,todo"
+            Description="Phases and tasks with dates, progress and a colored status, a header over the schedule columns, and check boxes that tick the subtasks too."
+            DefaultWidth="760" DefaultHeight="360">
+        <tg:TreeGridControl ItemsSource="{Binding SampleData.ProjectPlan}" ChildPropertyName="Subtasks" AutoExpandLevels="1"
+                            AllowCheckBoxSelection="True" CheckedMemberPath="Done" FrozenColumnCount="1">
+          <tg:TreeGridControl.StackedHeaderRows>
+            <headers:StackedHeaderRow>
+              <headers:StackedHeaderRow.StackedColumns>
+                <headers:StackedColumn HeaderText="Schedule" ChildColumns="Start,Finish" />
+                <headers:StackedColumn HeaderText="Tracking" ChildColumns="Progress,Status" />
+              </headers:StackedHeaderRow.StackedColumns>
+            </headers:StackedHeaderRow>
+          </tg:TreeGridControl.StackedHeaderRows>
+          <tg:TreeGridControl.Columns>
+            <cols:TreeGridTextColumn MappingName="Name" HeaderText="Task" Width="210" />
+            <cols:TreeGridTextColumn MappingName="Owner" HeaderText="Owner" Width="100" />
+            <cols:TreeGridDateTimeColumn MappingName="Start" HeaderText="Start" Width="70" DateFormat="MMM d" />
+            <cols:TreeGridDateTimeColumn MappingName="Finish" HeaderText="Finish" Width="70" DateFormat="MMM d" />
+            <cols:TreeGridProgressBarColumn MappingName="Progress" HeaderText="Progress" Width="95" />
+            <cols:TreeGridTemplateColumn MappingName="Status" HeaderText="Status" Width="100">
+              <cols:TreeGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <Border Background="{Binding StatusColor}" CornerRadius="9" Padding="8,1" Margin="6,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Status}" Foreground="White" FontSize="11" />
+                  </Border>
+                </DataTemplate>
+              </cols:TreeGridTemplateColumn.CellTemplate>
+            </cols:TreeGridTemplateColumn>
+            <cols:TreeGridNumericColumn MappingName="Budget" HeaderText="Budget" Width="85" DisplayFormat="{}{0:C0}" />
+          </tg:TreeGridControl.Columns>
+        </tg:TreeGridControl>
+      </Item>
+      <Item Name="FileExplorer" Label="File Explorer" Icon="fileexplorer" Keywords="files,folders,explorer,finder,documents,drive,storage,dark"
+            Description="Folders and files with icons, sizes that sort as numbers, and filters in the headers, in the dark theme."
+            DefaultWidth="600" DefaultHeight="330">
+        <tg:TreeGridControl ItemsSource="{Binding SampleData.Files}" ChildPropertyName="Children" AutoExpandLevels="1" AllowFiltering="True" GridLinesVisibility="Horizontal">
+          <tg:TreeGridControl.Resources>
+            <ResourceDictionary Source="/TreeGrid.OpenSilver;component/Themes/FluentDark.xaml" />
+          </tg:TreeGridControl.Resources>
+          <tg:TreeGridControl.Columns>
+            <cols:TreeGridTemplateColumn MappingName="Name" HeaderText="Name" Width="215">
+              <cols:TreeGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4,0">
+                    <TextBlock Text="{Binding Icon}" Margin="0,0,6,0" />
+                    <TextBlock Text="{Binding Name}" />
+                  </StackPanel>
+                </DataTemplate>
+              </cols:TreeGridTemplateColumn.CellTemplate>
+            </cols:TreeGridTemplateColumn>
+            <cols:TreeGridTextColumn MappingName="Kind" HeaderText="Kind" Width="90" />
+            <cols:TreeGridTextColumn MappingName="SizeText" SortMemberPath="Size" HeaderText="Size" Width="80" TextAlignment="Right" />
+            <cols:TreeGridDateTimeColumn MappingName="Modified" HeaderText="Modified" Width="105" DateFormat="MMM d, yyyy" />
+            <cols:TreeGridBooleanIconColumn MappingName="Shared" HeaderText="Shared" Width="80" TrueText="Shared" FalseText="Private" />
+          </tg:TreeGridControl.Columns>
+        </tg:TreeGridControl>
+      </Item>
+      <Item Name="BudgetTreeGrid" Label="Budget" Icon="budget" Keywords="budget,finance,accounts,self-relational,parent id,flat list,totals,variance"
+            Description="A flat list shown as a tree: each line names its parent with ParentId. Set IdPropertyName and ParentIdPropertyName instead of ChildPropertyName."
+            DefaultWidth="620" DefaultHeight="330">
+        <tg:TreeGridControl ItemsSource="{Binding SampleData.Budget}" IdPropertyName="Id" ParentIdPropertyName="ParentId" AutoExpandLevels="-1">
+          <tg:TreeGridControl.Columns>
+            <cols:TreeGridTextColumn MappingName="Account" HeaderText="Account" Width="180" />
+            <cols:TreeGridNumericColumn MappingName="Planned" HeaderText="Planned" Width="100" DisplayFormat="{}{0:C0}" />
+            <cols:TreeGridNumericColumn MappingName="Actual" HeaderText="Actual" Width="100" DisplayFormat="{}{0:C0}" />
+            <cols:TreeGridNumericColumn MappingName="Variance" HeaderText="Variance" Width="100" DisplayFormat="{}{0:C0}" />
+            <cols:TreeGridProgressBarColumn MappingName="Spent" HeaderText="Spent" Width="110" />
+          </tg:TreeGridControl.Columns>
+        </tg:TreeGridControl>
+      </Item>
+    </Group>
+  </Section>
+</Gallery>

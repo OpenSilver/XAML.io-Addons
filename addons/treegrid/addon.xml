@@ -1,0 +1,34 @@
+﻿<Addon
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../schemas/addon.xsd"
+    Id="treegrid"
+    Name="TreeGrid"
+    Publisher="Gulshan Verma"
+    Version="1.0.0"
+    License="MIT"
+    Icon="treegrid"
+    Banner="assets/Banner.webp"
+    Website="https://github.com/OpenSilver/tree-grid-wpf"
+    Slugs="treegrid,tree-grid"
+    Description="A multi-column tree grid, ported from WPF: nested rows that expand and collapse, with sorting, filtering, grouping and editing."
+    Highlights="Includes progress, icon, link, date and template columns, stacked headers, frozen columns, check boxes that cascade, row drag and drop, colors that follow the light and dark modes of the app's theme, and binding to nested collections or to flat lists with parent keys.">
+
+  <Packages>
+    <Package Id="TreeGrid.OpenSilver" RecommendedVersion="3.4.0-preview-2026-11-27-002912-854e74b" Activation="Package" />
+  </Packages>
+
+  <Xmlns Prefix="tg" Uri="clr-namespace:TreeGrid.Wpf;assembly=TreeGrid.OpenSilver" />
+  <Xmlns Prefix="cols" Uri="clr-namespace:TreeGrid.Wpf.Columns;assembly=TreeGrid.OpenSilver" />
+  <Xmlns Prefix="headers" Uri="clr-namespace:TreeGrid.Wpf.Headers;assembly=TreeGrid.OpenSilver" />
+
+  <Screenshots>
+    <Screenshot File="assets/TeamTreeGrid.png" />
+    <Screenshot File="assets/ProjectPlan.png" />
+    <Screenshot File="assets/FileExplorer.png" />
+    <Screenshot File="assets/Budget.png" />
+  </Screenshots>
+
+  <Skills>
+    <Skill Name="treegrid" Files="reference/columns.md, reference/features.md" />
+  </Skills>
+</Addon>

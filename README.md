@@ -153,6 +153,7 @@ Agents such as GitHub Copilot, Cursor, Claude Code or Codex can write most of an
 ```
 addons/
   controlskit/        the example: ControlsKit, by Userware
+  treegrid/           TreeGrid, ported from WPF: panels with column cards, property lists and type changes
   <your-id>/          your add-on
 schemas/              the format of the add-on files, for completion in your editor and for the check
 AddonFormat.md        every element and attribute of the add-on files
@@ -160,7 +161,7 @@ AGENTS.md             instructions for AI coding agents
 tools/validate.cs     the check run on pull requests
 ```
 
-The schemas, `AddonFormat.md` and ControlsKit are copied from XAML.io, which loads the same files: please report problems with them in an issue rather than in a pull request.
+The schemas, `AddonFormat.md`, ControlsKit and TreeGrid are copied from XAML.io, which loads the same files: please report problems with them in an issue rather than in a pull request.
 
 ## Questions
 

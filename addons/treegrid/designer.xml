@@ -1,0 +1,405 @@
+<Designer
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://schemas.microsoft.com/winfx/2006/xaml/presentation ../../schemas/designer.xsd"
+    xmlns:tg="clr-namespace:TreeGrid.Wpf;assembly=TreeGrid.OpenSilver"
+    xmlns:cols="clr-namespace:TreeGrid.Wpf.Columns;assembly=TreeGrid.OpenSilver"
+    xmlns:headers="clr-namespace:TreeGrid.Wpf.Headers;assembly=TreeGrid.OpenSilver">
+
+  <!-- ===================================================================== TreeGridControl
+       The bar keeps the switch people use most; the panels go from the look, to the columns, to the tree, to the
+       behaviors. Each panel shows its common settings first and folds the rest into sections. -->
+  <Control Type="tg:TreeGridControl" TopmostProperties="ItemsSource,ChildPropertyName,AutoExpandLevels,AllowEditing,AllowSorting,AllowFiltering">
+
+    <Toggle Label="Editable" Property="AllowEditing" ToolTip="Let people edit the cells: double-click a cell, type, then press Enter" />
+
+    <Panel Label="Style" Icon="palette" ToolTip="Accent, colors, row height and grid lines"
+           Description="How the grid looks. It takes the colors of the app's theme and follows its light and dark modes (the sun and moon under the page). Pick an accent, then fine-tune.">
+      <Toggle Label="Always dark" Target="Resources"
+              ToolTip="Keeps the grid dark even when the app is light, such as with the WPF theme. Not needed for the dark mode of the Modern theme: the grid follows it.">
+        <ResourceDictionary Source="/TreeGrid.OpenSilver;component/Themes/FluentDark.xaml" />
+      </Toggle>
+      <Presets Label="Accent" Appearance="Swatches" Description="Colors the headers and the selection, in light and dark mode.">
+        <Preset Label="Theme" Description="The colors of the app's theme, light or dark">
+          <Set Property="HeaderBackground" />
+          <Set Property="HeaderForeground" />
+          <Set Property="SelectedRowBackground" />
+          <Set Property="AlternatingRowBackground" />
+          <Set Property="FilterIconActiveBrush" />
+          <Set Property="SortBadgeBackground" />
+          <Set Property="SortBadgeForeground" />
+        </Preset>
+        <Preset Label="Indigo" Colors="#FF4F46E5 #FFFFFFFF #FFC7D2FE">
+          <Set Property="HeaderBackground" Value="#FF4F46E5" />
+          <Set Property="HeaderForeground" Value="#FFFFFFFF" />
+          <Set Property="SelectedRowBackground" Value="#404F46E5" />
+          <Set Property="AlternatingRowBackground" Value="#0F4F46E5" />
+          <Set Property="FilterIconActiveBrush" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeBackground" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeForeground" Value="#FF4F46E5" />
+        </Preset>
+        <Preset Label="Emerald" Colors="#FF059669 #FFFFFFFF #FFA7F3D0">
+          <Set Property="HeaderBackground" Value="#FF059669" />
+          <Set Property="HeaderForeground" Value="#FFFFFFFF" />
+          <Set Property="SelectedRowBackground" Value="#40059669" />
+          <Set Property="AlternatingRowBackground" Value="#0F059669" />
+          <Set Property="FilterIconActiveBrush" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeBackground" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeForeground" Value="#FF059669" />
+        </Preset>
+        <Preset Label="Amber" Colors="#FFD97706 #FFFFFFFF #FFFDE68A">
+          <Set Property="HeaderBackground" Value="#FFD97706" />
+          <Set Property="HeaderForeground" Value="#FFFFFFFF" />
+          <Set Property="SelectedRowBackground" Value="#40D97706" />
+          <Set Property="AlternatingRowBackground" Value="#0FD97706" />
+          <Set Property="FilterIconActiveBrush" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeBackground" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeForeground" Value="#FFD97706" />
+        </Preset>
+        <Preset Label="Rose" Colors="#FFE11D48 #FFFFFFFF #FFFECDD3">
+          <Set Property="HeaderBackground" Value="#FFE11D48" />
+          <Set Property="HeaderForeground" Value="#FFFFFFFF" />
+          <Set Property="SelectedRowBackground" Value="#40E11D48" />
+          <Set Property="AlternatingRowBackground" Value="#0FE11D48" />
+          <Set Property="FilterIconActiveBrush" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeBackground" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeForeground" Value="#FFE11D48" />
+        </Preset>
+        <Preset Label="Slate" Colors="#FF334155 #FFFFFFFF #FFCBD5E1">
+          <Set Property="HeaderBackground" Value="#FF334155" />
+          <Set Property="HeaderForeground" Value="#FFFFFFFF" />
+          <Set Property="SelectedRowBackground" Value="#40647A99" />
+          <Set Property="AlternatingRowBackground" Value="#0F647A99" />
+          <Set Property="FilterIconActiveBrush" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeBackground" Value="#FFFFFFFF" />
+          <Set Property="SortBadgeForeground" Value="#FF334155" />
+        </Preset>
+      </Presets>
+      <Toggle Label="Striped rows" Property="ShowAlternatingRows" ToolTip="Every other row is tinted, so long rows are easier to follow" />
+      <Toggle Label="Highlight the row under the mouse" Property="HoverRowBackground" Value="#1F808080" />
+      <Choice Property="GridLinesVisibility" Label="Grid lines">
+        <Option Label="None" Value="None" />
+        <Option Label="Rows" Value="Horizontal" />
+        <Option Label="Columns" Value="Vertical" />
+        <Option Label="Both" Value="Both" />
+      </Choice>
+      <Number Property="RowHeight" Label="Row height" Unit="px" Minimum="16" Maximum="80">
+        <Option Label="Compact" Value="22" />
+        <Option Label="Normal" />
+        <Option Label="Roomy" Value="34" />
+      </Number>
+      <Number Property="CellFontSize" Label="Text size" Unit="px" Minimum="8" Maximum="24">
+        <Option Label="Small" Value="11" />
+        <Option Label="Normal" />
+        <Option Label="Large" Value="14" />
+      </Number>
+      <Section Label="Headers">
+        <Number Property="HeaderRowHeight" Label="Height" Unit="px" Minimum="16" Maximum="80">
+          <Option Label="Normal" />
+          <Option Label="Tall" Value="38" />
+        </Number>
+        <Number Property="HeaderFontSize" Label="Text size" Unit="px" Minimum="8" Maximum="24">
+          <Option Label="Small" Value="11" />
+          <Option Label="Normal" />
+          <Option Label="Large" Value="14" />
+        </Number>
+        <Choice Property="HeaderFontWeight" Label="Weight">
+          <Option Label="Normal" Value="Normal" />
+          <Option Label="Semibold" />
+          <Option Label="Bold" Value="Bold" />
+        </Choice>
+        <Color Property="HeaderBackground" Label="Background" />
+        <Color Property="HeaderForeground" Label="Text" />
+        <Color Property="HeaderBorderBrush" Label="Lines" />
+        <Color Property="SortIconBrush" Label="Sort arrows" />
+        <Color Property="FilterIconBrush" Label="Filter funnels" />
+      </Section>
+      <Section Label="Colors"
+               Description="A color picked here replaces the theme's in both light and dark mode, so check both. Pick none to give it back to the theme.">
+        <Presets Label="Reset">
+          <Preset Label="Theme colors" Description="Removes the colors picked here, in Headers and with Accent; the grid takes the theme's again">
+            <Set Property="Background" />
+            <Set Property="RowBackground" />
+            <Set Property="AlternatingRowBackground" />
+            <Set Property="SelectedRowBackground" />
+            <Set Property="SelectedRowForeground" />
+            <Set Property="CellForeground" />
+            <Set Property="GridLineBrush" />
+            <Set Property="BorderBrush" />
+            <Set Property="ExpanderGlyphBrush" />
+            <Set Property="CurrentCellBorderBrush" />
+            <Set Property="HeaderBackground" />
+            <Set Property="HeaderForeground" />
+            <Set Property="HeaderBorderBrush" />
+            <Set Property="SortIconBrush" />
+            <Set Property="FilterIconBrush" />
+            <Set Property="FilterIconActiveBrush" />
+            <Set Property="SortBadgeBackground" />
+            <Set Property="SortBadgeForeground" />
+          </Preset>
+        </Presets>
+        <Color Property="Background" Label="Background" />
+        <Color Property="RowBackground" Label="Rows" />
+        <Color Property="AlternatingRowBackground" Label="Every other row" ToolTip="Shown with Striped rows" />
+        <Color Property="SelectedRowBackground" Label="Selection" />
+        <Color Property="SelectedRowForeground" Label="Selected text" />
+        <Color Property="HoverRowBackground" Label="Row under the mouse" />
+        <Color Property="CellForeground" Label="Text" />
+        <Color Property="GridLineBrush" Label="Grid lines" />
+        <Color Property="BorderBrush" Label="Border" />
+        <Color Property="ExpanderGlyphBrush" Label="Expand arrows" />
+        <Color Property="CurrentCellBorderBrush" Label="Current cell" />
+      </Section>
+    </Panel>
+
+    <Panel Label="Columns" Icon="columns" ToolTip="What each column shows, and how"
+           Description="The columns, in their order. Open one to choose the property it shows and how it draws it.">
+      <Items Label="Columns" Target="Columns" ItemLabel="HeaderText">
+        <Choice Property="MappingName" Label="Shows" PropertiesOf="ItemsSource" Placeholder="A property of the items"
+                Description="The property of the items in this column." />
+        <Text Property="HeaderText" Label="Header" Placeholder="The property shown" />
+        <Choice Label="Show as" Appearance="List" Description="How the values are drawn. The column keeps its other settings.">
+          <Option Label="Text" Type="cols:TreeGridTextColumn" />
+          <Option Label="Number" Type="cols:TreeGridNumericColumn" />
+          <Option Label="Date" Type="cols:TreeGridDateTimeColumn" />
+          <Option Label="Progress bar" Type="cols:TreeGridProgressBarColumn" />
+          <Option Label="Yes/no icon" Type="cols:TreeGridBooleanIconColumn" />
+          <Option Label="Check box" Type="cols:TreeGridCheckBoxColumn" />
+          <Option Label="Link" Type="cols:TreeGridHyperlinkColumn" />
+        </Choice>
+        <Presets Label="Format" When="is:cols:TreeGridNumericColumn">
+          <Preset Label="1,234.56">
+            <Set Property="DisplayFormat" />
+            <Set Property="NumberDecimalDigits" />
+          </Preset>
+          <Preset Label="1,234">
+            <Set Property="DisplayFormat" />
+            <Set Property="NumberDecimalDigits" Value="0" />
+          </Preset>
+          <Preset Label="$1,234" Description="An amount in the currency of the user's language">
+            <Set Property="DisplayFormat" Value="{}{0:C0}" />
+            <Set Property="NumberDecimalDigits" />
+          </Preset>
+          <Preset Label="$1,234.56">
+            <Set Property="DisplayFormat" Value="{}{0:C2}" />
+            <Set Property="NumberDecimalDigits" />
+          </Preset>
+          <Preset Label="75%" Description="For values from 0 to 100">
+            <Set Property="DisplayFormat" Value="{}{0}%" />
+            <Set Property="NumberDecimalDigits" />
+          </Preset>
+        </Presets>
+        <Choice Property="DateFormat" Label="Format" Appearance="List" When="is:cols:TreeGridDateTimeColumn">
+          <Option Label="11/26/2026" />
+          <Option Label="Nov 26, 2026" Value="MMM d, yyyy" />
+          <Option Label="Nov 26" Value="MMM d" />
+          <Option Label="November 2026" Value="MMMM yyyy" />
+          <Option Label="Thursday, November 26, 2026" Value="D" />
+          <Option Label="11/26/2026 3:45 PM" Value="g" />
+        </Choice>
+        <Toggle Label="Percentage on the bar" Property="ShowPercentText" When="is:cols:TreeGridProgressBarColumn" />
+        <Number Property="Maximum" Label="Full at" Minimum="0" When="is:cols:TreeGridProgressBarColumn"
+                Description="The value of a full bar, such as 1 for fractions.">
+          <Option Label="100" />
+          <Option Label="1" Value="1" />
+        </Number>
+        <Color Property="TrueBrush" Label="Yes color" When="is:cols:TreeGridBooleanIconColumn" />
+        <Color Property="FalseBrush" Label="No color" When="is:cols:TreeGridBooleanIconColumn" />
+        <Text Property="TrueText" Label="Yes tooltip" Placeholder="Yes" When="is:cols:TreeGridBooleanIconColumn" />
+        <Text Property="FalseText" Label="No tooltip" Placeholder="No" When="is:cols:TreeGridBooleanIconColumn" />
+        <Toggle Label="Circle behind the icon" Property="ShowBackgroundCircle" When="is:cols:TreeGridBooleanIconColumn" />
+        <Toggle Label="Three states" Property="IsThreeState" When="is:cols:TreeGridCheckBoxColumn" ToolTip="Yes, no and unknown, for a nullable property" />
+        <Number Property="Width" Label="Width" Unit="px" Minimum="20" Maximum="2000">
+          <Option Label="Auto" />
+          <Option Label="80" Value="80" />
+          <Option Label="120" Value="120" />
+          <Option Label="200" Value="200" />
+        </Number>
+        <Choice Property="ColumnSizer" Label="Size" Appearance="List" Description="How the column sizes itself when the width is Auto or the grid resizes.">
+          <Option Label="The width above" />
+          <Option Label="Fit the cells" Value="SizeToCells" />
+          <Option Label="Fit the header" Value="SizeToHeader" />
+          <Option Label="Fit the cells and the header" Value="AllCells" />
+          <Option Label="Share the free space" Value="Star" />
+        </Choice>
+        <Choice Property="TextAlignment" Label="Alignment">
+          <Option Label="Left" Value="Left" When="!is:cols:TreeGridNumericColumn" />
+          <Option Label="Center" Value="Center" />
+          <Option Label="Right" Value="Right" />
+        </Choice>
+        <Color Property="CellForeground" Label="Text color" />
+        <Toggle Label="Sortable" Property="AllowSorting" ToolTip="Also needs Sort by clicking a header, in Features" />
+        <Toggle Label="Filterable" Property="AllowFiltering" ToolTip="Also needs Filter from the headers, in Features" />
+        <Toggle Label="Editable" Property="AllowEditing" ToolTip="Also needs Editable, in the bar" />
+        <Toggle Label="Visible" Property="IsHidden" Value="False" OffValue="True" />
+        <Add Label="Text" Description="A column of text; then pick the property it shows">
+          <cols:TreeGridTextColumn HeaderText="Text" />
+        </Add>
+        <Add Label="Number" Description="Right-aligned numbers, with a format such as an amount">
+          <cols:TreeGridNumericColumn HeaderText="Number" />
+        </Add>
+        <Add Label="Date" Description="Dates, edited with a date picker">
+          <cols:TreeGridDateTimeColumn HeaderText="Date" />
+        </Add>
+        <Add Label="Progress" Description="A bar for values from 0 to 100">
+          <cols:TreeGridProgressBarColumn HeaderText="Progress" />
+        </Add>
+        <Add Label="Yes/no" Description="A check mark or a cross for a true/false property">
+          <cols:TreeGridBooleanIconColumn HeaderText="Yes/no" />
+        </Add>
+        <Add Label="Check box" Description="A check box that edits a true/false property">
+          <cols:TreeGridCheckBoxColumn HeaderText="Check" />
+        </Add>
+        <Add Label="Link" Description="Web addresses as links">
+          <cols:TreeGridHyperlinkColumn HeaderText="Link" />
+        </Add>
+        <Add Label="Custom" Description="Cells drawn by your own template, bound to the item, such as a colored badge">
+          <cols:TreeGridTemplateColumn HeaderText="Custom">
+            <cols:TreeGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" Margin="6,0" VerticalAlignment="Center" />
+              </DataTemplate>
+            </cols:TreeGridTemplateColumn.CellTemplate>
+          </cols:TreeGridTemplateColumn>
+        </Add>
+      </Items>
+      <Number Property="FrozenColumnCount" Label="Frozen columns" Minimum="0" Maximum="20" Description="Keep the first columns in view when scrolling sideways.">
+        <Option Label="None" />
+        <Option Label="1" Value="1" />
+        <Option Label="2" Value="2" />
+      </Number>
+      <Section Label="Headers over several columns" Description="A row above the headers that groups columns, such as Schedule over Start and Finish.">
+        <Items Label="Spanning headers" Target="StackedHeaderRows/headers:StackedHeaderRow/StackedColumns" ItemLabel="HeaderText">
+          <Text Property="HeaderText" Label="Text" Placeholder="No text" />
+          <Text Property="ChildColumns" Label="Columns" Placeholder="Start,Finish"
+                Description="The properties of the columns it spans (their Shows), separated by commas. The columns must be next to each other." />
+          <Add Label="Spanning header">
+            <headers:StackedColumn HeaderText="Group" />
+          </Add>
+        </Items>
+        <Number Property="StackedHeaderRowHeight" Label="Height" Unit="px" Minimum="16" Maximum="80">
+          <Option Label="Normal" />
+          <Option Label="Tall" Value="36" />
+        </Number>
+      </Section>
+    </Panel>
+
+    <Panel Label="Tree" Icon="hierarchy" ToolTip="How rows nest, and which are open at first"
+           Description="Items that hold other items show as rows that expand and collapse.">
+      <Choice Property="ChildPropertyName" Label="Children" PropertiesOf="ItemsSource" PropertyKind="Collections" Placeholder="For example, Children"
+              Description="The property of each item holding the items under it.">
+        <Option Label="None" />
+      </Choice>
+      <Choice Property="AutoExpandLevels" Label="Open at first" Description="The levels expanded when the items load. People open and close the others.">
+        <Option Label="None" />
+        <Option Label="1 level" Value="1" />
+        <Option Label="2 levels" Value="2" />
+        <Option Label="All" Value="-1" />
+      </Choice>
+      <Number Property="IndentPerLevel" Label="Indent" Unit="px" Minimum="0" Maximum="60">
+        <Option Label="Small" Value="10" />
+        <Option Label="Normal" />
+        <Option Label="Large" Value="28" />
+      </Number>
+      <Number Property="ExpanderColumnIndex" Label="Tree column" Minimum="0" Maximum="50" Description="The column with the arrows and the indent, counting from 0.">
+        <Option Label="First" />
+        <Option Label="Second" Value="1" />
+      </Number>
+      <Section Label="Flat list with parent keys"
+               Description="For a flat list where each item names its parent, such as the rows of a table. Leave Children at None.">
+        <Choice Property="IdPropertyName" Label="Key" PropertiesOf="ItemsSource" Placeholder="For example, Id" Description="The property identifying each item.">
+          <Option Label="None" />
+        </Choice>
+        <Choice Property="ParentIdPropertyName" Label="Parent key" PropertiesOf="ItemsSource" Placeholder="For example, ParentId"
+                Description="The property holding the key of the item's parent; empty for the top-level items.">
+          <Option Label="None" />
+        </Choice>
+      </Section>
+      <Section Label="Check boxes" Description="A check box on each row, as in a to-do list.">
+        <Toggle Label="Check boxes" Property="AllowCheckBoxSelection" />
+        <Choice Property="CheckBoxCascadeMode" Label="Checking a row" Appearance="List" When="AllowCheckBoxSelection=True">
+          <Option Label="Checks it and its children" Value="SynchronizeWithParentAndChildren"
+                  Description="A parent shows checked, unchecked or partly checked from its children" />
+          <Option Label="Checks its children too" Value="SynchronizeChildrenOnly" />
+          <Option Label="Checks it only" Value="None" />
+        </Choice>
+        <Choice Property="CheckedMemberPath" Label="Saved in" PropertiesOf="ItemsSource" Placeholder="For example, IsChecked" When="AllowCheckBoxSelection=True"
+                Description="A true/false property of the items that the check boxes read and write.">
+          <Option Label="Nowhere" />
+        </Choice>
+      </Section>
+    </Panel>
+
+    <Panel Label="Features" Icon="sliders" ToolTip="Sorting, filtering, grouping, editing, selection, drag and drop"
+           Description="What people can do with the grid. Try it in the preview, or when running the app.">
+      <Section Label="Sorting and filtering">
+        <Toggle Label="Sort by clicking a header" Property="AllowSorting" />
+        <Toggle Label="Sort by several columns" Property="AllowMultiSort" When="AllowSorting=True" ToolTip="Ctrl+click more headers to sort by them too" />
+        <Toggle Label="Numbers on sorted headers" Property="ShowSortNumbers" When="AllowSorting=True;AllowMultiSort=True" ToolTip="Shows the order of the sorted columns" />
+        <Toggle Label="Filter from the headers" Property="AllowFiltering" ToolTip="A funnel in each header filters by value or by condition, as in Excel" />
+        <Choice Property="FilterNodeMode" Label="A filter shows" Appearance="List" When="AllowFiltering=True">
+          <Option Label="The matching rows only" Value="MatchingNodesOnly" />
+          <Option Label="The matching rows and their parents" Value="MatchingAndParentNodes" />
+          <Option Label="The matching rows and their children" Value="MatchingAndChildNodes" />
+          <Option Label="The matching rows, parents and children" Value="MatchingParentAndChildNodes" />
+        </Choice>
+        <Toggle Label="Open the parents of matches" Property="ExpandNodesOnFiltering" When="AllowFiltering=True" />
+      </Section>
+      <Section Label="Grouping" Description="People drag a column header above the grid to group the rows by its values.">
+        <Toggle Label="Group by a column" Property="AllowGrouping" />
+        <Toggle Label="Area to drop headers" Property="ShowGroupDropArea" When="AllowGrouping=True" ToolTip="Without it, people group from the header menu, under Clipboard and menus" />
+        <Toggle Label="Counts in group headers" Property="ShowGroupItemCount" When="AllowGrouping=True" />
+        <Toggle Label="Groups open at first" Property="AutoExpandGroups" When="AllowGrouping=True" />
+        <Toggle Label="Hide the grouped columns" Property="HideGroupedColumns" When="AllowGrouping=True" />
+      </Section>
+      <Section Label="Editing">
+        <Toggle Label="Editable" Property="AllowEditing" />
+        <Choice Property="EditTrigger" Label="Start editing with" When="AllowEditing=True">
+          <Option Label="A click" Value="OnTap" />
+          <Option Label="A double-click" Value="OnDoubleTap" />
+          <Option Label="A key" Value="OnKeyPress" />
+        </Choice>
+        <Choice Property="ValidationMode" Label="Check values" When="AllowEditing=True" Description="Validation errors of the items show on the cells or rows.">
+          <Option Label="Never" Value="None" />
+          <Option Label="Per cell" Value="Cell" />
+          <Option Label="Per row" Value="Row" />
+          <Option Label="Both" Value="CellAndRow" />
+        </Choice>
+        <Toggle Label="Same value for the selected rows" Property="AllowBulkValueChange" When="AllowEditing=True"
+                ToolTip="Ctrl+Enter applies the value typed to every selected row of the column" />
+        <Toggle Label="Delete rows with the Delete key" Property="AllowDeleteRows" />
+        <Toggle Label="Ask before deleting" Property="ConfirmRowDelete" When="AllowDeleteRows=True" />
+      </Section>
+      <Section Label="Selection">
+        <Choice Property="SelectionMode" Label="Select" Appearance="List">
+          <Option Label="Nothing" Value="None" />
+          <Option Label="One row" Value="Single" />
+          <Option Label="Rows, one click each" Value="Multiple" />
+          <Option Label="Rows, with Ctrl and Shift" Value="Extended" />
+        </Choice>
+        <Choice Property="SelectionUnit" Label="A click selects">
+          <Option Label="The row" Value="Row" />
+          <Option Label="The cell" Value="Cell" />
+        </Choice>
+      </Section>
+      <Section Label="Drag and drop">
+        <Toggle Label="Move rows by dragging" Property="AllowRowDragDrop" ToolTip="People drop rows above, below or into other rows; the items move in your collections" />
+        <Toggle Label="Picture of the dragged row" Property="ShowDragPreview" When="AllowRowDragDrop=True" />
+        <Color Property="DropIndicatorBrush" Label="Drop marker" When="AllowRowDragDrop=True" />
+        <Toggle Label="Resize columns" Property="AllowColumnResizing" />
+        <Toggle Label="Reorder columns" Property="AllowColumnReordering" />
+      </Section>
+      <Section Label="Clipboard and menus">
+        <Toggle Label="Copy with Ctrl+C" Property="AllowCopy" />
+        <Toggle Label="Paste with Ctrl+V" Property="AllowPaste" When="AllowEditing=True" />
+        <Toggle Label="Paste several cells, as from Excel" Property="AllowExcelPaste" When="AllowEditing=True;AllowPaste=True" />
+        <Toggle Label="Right-click menus" Property="ShowDefaultContextMenus" ToolTip="Menus to sort, filter, group, copy, expand and collapse" />
+        <Toggle Label="Hide columns from the menu" Property="AllowHidingColumns" When="ShowDefaultContextMenus=True" />
+      </Section>
+      <Section Label="Footer">
+        <Toggle Label="Footer" Property="ShowFooter" ToolTip="A bar under the rows with the number of rows" />
+        <Text Property="FooterStatusText" Label="Text" Placeholder="The number of rows" When="ShowFooter=True" />
+      </Section>
+    </Panel>
+  </Control>
+</Designer>
